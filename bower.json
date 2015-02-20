@@ -1,5 +1,5 @@
 {
-  "name": "datatables-servidor",
+  "name": "practica-ajax-datatables",
   "private": true,
   "dependencies": {
     "bootstrap": "~3.2.0"

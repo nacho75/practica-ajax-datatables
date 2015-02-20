@@ -1,5 +1,6 @@
    'use strict';
    $(document).ready(function() {
+      $('#example').show();
        var miTabla = $('#miTabla').DataTable({
            'processing': true,
            'serverSide': true,
@@ -29,37 +30,26 @@
                }
            },
            'columns': [{
-               'data': 'idClinica'
-           }, {
                'data': 'nombre'
            }, {
-               'data': 'razonSocial'
+               'data': 'numcolegiado'
            }, {
-               'data': 'cif'
-           }, {
-               'data': 'localidad'
-           }, {
-               'data': 'provincia'
-           }, {
-               'data': 'direccion'
-           }, {
-               'data': 'cp'
-           }, {
-               'data': 'numClinica'
-           }, {
-               'data': 'idTarifa'
-           }, {
-               'data': 'nombreTarifa'
+               'data': 'nombreClinica',
+                'render': function(data) {
+                   return '<li>' + data + '</li><br>';
+               }
            }, {
                'data': 'idClinica',
+                "visible": false
+           }, {
+               'data': 'idDoctor',
                /*añadimos las clases editarbtn y borrarbtn para procesar los eventos click de los botones. No lo hacemos mediante id ya que habrá más de un
                botón de edición o borrado*/
                'render': function(data) {
-                   return '<a class="btn btn-primary editarbtn" href=http://localhost/php/editar.php?id_clinica=' + data + '>Editar</a><a class="btn btn-warning borrarbtn" href=http://localhost/php/borrar.php?id_clinica=' + data + '>Borrar</a>';
+                   return '<a class="btn btn-primary editarbtn" href=http://localhost/php/modificar_clinica.php?id_doctor=' + data + '>Editar</a><a class="btn btn-warning borrarbtn" href=http://localhost/php/borrar_doctor.php?id_doctor=' + data + '>Borrar</a>';
                }
            }]
        });
-
        /*Creamos la función que muestre el formulario cuando hagamos click*/
        /*ojo, es necesario hacerlo con el método ON. Tanto por rendimiento como porque puede haber elementos (botones) que todavía no existan en el document.ready*/
        $('#miTabla').on('click', '.editarbtn', function(e) {
@@ -69,21 +59,11 @@
 
            var nRow = $(this).parents('tr')[0];
            var aData = miTabla.row(nRow).data();
-           $('#idClinica').val(aData.idClinica);
+           $('#idDoctor').val(aData.idDoctor);
            $('#nombre').val(aData.nombre);
-           $('#numClinica').val(aData.numClinica);
-           $('#razonSocial').val(aData.razonSocial);
-           $('#cif').val(aData.cif);
-           $('#localidad').val(aData.localidad);
-           /*lo más cómodo para la provincia sería esto: (hemos convertido los values a mayúsculas mediante multicursor y CTRL + K + U (Sublime)*/
-           $('#provincia').val(aData.provincia);
-           /*Como hemos cambiado las option del select, más cómodo también para el envío de datos, esto que teníamos lo comentamos:*/
-           /*$('#provincia option').filter(function() {
-               return this.text.toLowerCase() === aData.provincia.toLowerCase();
-           }).attr('selected', true);*/
-           $('#id_tarifa').val(aData.idTarifa);
-           $('#direccion').val(aData.direccion);
-           $('#cp').val(aData.cp);
+           $('#numcolegiado').val(aData.numcolegiado);
+           $('#clinicas').val(aData.nombreClinica);
+           
        });
 
 
@@ -91,44 +71,51 @@
            e.preventDefault();
            var nRow = $(this).parents('tr')[0];
            var aData = miTabla.row(nRow).data();
-           var idClinica = aData.idClinica;
+           var idDoctor = aData.idDoctor;
+
+          
+           
 
 
            $.ajax({
                /*en principio el type para api restful sería delete pero no lo recogeríamos en $_REQUEST, así que queda como POST*/
                type: 'POST',
                dataType: 'json',
-               url: 'php/borrar_clinica.php',
+               url: 'php/borrar_doctor.php',
                //estos son los datos que queremos actualizar, en json:
                data: {
-                   id_clinica: idClinica
+                   id_doctor: idDoctor
                },
                error: function(xhr, status, error) {
                    //mostraríamos alguna ventana de alerta con el error
                    alert("Ha entrado en error");
+                $('#edicionerr').html("Error al borrar doctor!").slideDown(2000).slideUp(2000);
+
                },
                success: function(data) {
+                alert("borrado ok");
                    //obtenemos el mensaje del servidor, es un array!!!
                    //var mensaje = (data["mensaje"]) //o data[0], en función del tipo de array!!
                    //actualizamos datatables:
                    /*para volver a pedir vía ajax los datos de la tabla*/
-                   miTabla.fnDraw();
+                   var $mitabla =  $("#miTabla").dataTable( { bRetrieve : true } );
+                  $mitabla.fnDraw();
+                   $('#edicionok').html("Borrado correcto!").slideDown(2000).slideUp(2000);
+
                },
                complete: {
                    //si queremos hacer algo al terminar la petición ajax
                }
            });
+
        });
        $('#enviar').click(function(e) {
            e.preventDefault();
-           idClinica = $('#idClinica').val();
+           idDoctor = $('#idDoctor').val();
            nombre = $('#nombre').val();
-           localidad = $('#localidad').val();
-           provincia = $('#provincia').val();
-           direccion = $('#direccion').val();
-           cif = $('#cif').val();
-           cp = $('#cp').val();
-           id_tarifa = $('#id_tarifa').val();
+           numcolegiado = $('#numcolegiado').val();
+           id_clinica = $('#clinicas').val();
+
 
            $.ajax({
                type: 'POST',
@@ -139,29 +126,41 @@
                //pero como el php tiene otros nombres de variables, lo dejo así
                //estos son los datos que queremos actualizar, en json:
                data: {
-                   id_clinica: idClinica,
+                   idDoctor: idDoctor,
                    nombre: nombre,
-                   localidad: localidad,
-                   provincia: provincia,
-                   direccion: direccion,
-                   cp: cp,
-                   id_tarifa: id_tarifa,
-                   cif: cif
+                   numcolegiado: numcolegiado,
+                   id_clinica:id_clinica
+                   
                },
                error: function(xhr, status, error) {
                    //mostraríamos alguna ventana de alerta con el error
+                    alert(error);
+                    alert(xhr);
+
+                    alert(status);
+
+                    $('#edicionerr').slideDown(2000).slideUp(2000);
+
                },
                success: function(data) {
                   var $mitabla =  $("#miTabla").dataTable( { bRetrieve : true } );
                   $mitabla.fnDraw();
+                 // alert("ok");
+                $('#edicionok').slideDown(2000).slideUp(2000);
+
+                 
+
                },
                complete: {
                    //si queremos hacer algo al terminar la petición ajax
+
                }
            });
 
            $('#tabla').fadeIn(100);
            $('#formulario').fadeOut(100);
+            //$("#edicion").fadeOut(100);
+
 
        });
 
@@ -178,14 +177,16 @@
                //data: { id_clinica: id_clinica, nombre: nombre, ….,  id_tarifa: id_tarifa },
                error: function(xhr, status, error) {
                    //mostraríamos alguna ventana de alerta con el error
+              
                },
                success: function(data) {
-                   $('#id_tarifa').empty();
+                   $('#clinicas').empty();
                    $.each(data, function() {
-                       $('#id_tarifa').append(
-                           $('<option></option>').val(this.id_tarifa).html(this.nombre)
+                       $('#clinicas').append(
+                           $('<option></option>').val(this.id_clinica).html(this.nombre)
                        );
                    });
+
                },
                complete: {
                    //si queremos hacer algo al terminar la petición ajax
