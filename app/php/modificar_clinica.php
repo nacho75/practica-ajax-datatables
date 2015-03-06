@@ -34,14 +34,13 @@ mysql_query('SET names utf8');
  * Get data to display
  */
 
-$id = $_POST["id_clinica"];
+$id = $_POST["idDoctor"];
 $nombre = $_POST["nombre"];
-$localidad = $_POST["localidad"];
-$provincia = $_POST["provincia"];
-$direccion = $_POST["direccion"];
-$cp = $_POST["cp"];
-$id_tarifa = $_POST["id_tarifa"];
-$cif = $_POST["cif"];
+$numcolegiado = $_POST["numcolegiado"];
+$nombre_clinica = $_POST["nombre_clinica"];
+$id_clinica = $_POST["id_clinica"];
+
+/*echo "id=$id nombre= $nombre colegiado= $numcolegiado";*/
 
 /* Consulta UPDATE */
 $query = "UPDATE clinicas SET 

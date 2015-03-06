@@ -1,6 +1,6 @@
    'use strict';
    $(document).ready(function() {
-      $('#example').show();
+       $('#example').show();
        var miTabla = $('#miTabla').DataTable({
            'processing': true,
            'serverSide': true,
@@ -35,12 +35,8 @@
                'data': 'numcolegiado'
            }, {
                'data': 'nombreClinica',
-                'render': function(data) {
-                   return '<li>' + data + '</li><br>';
-               }
            }, {
                'data': 'idClinica',
-                "visible": false
            }, {
                'data': 'idDoctor',
                /*añadimos las clases editarbtn y borrarbtn para procesar los eventos click de los botones. No lo hacemos mediante id ya que habrá más de un
@@ -63,7 +59,7 @@
            $('#nombre').val(aData.nombre);
            $('#numcolegiado').val(aData.numcolegiado);
            $('#clinicas').val(aData.nombreClinica);
-           
+
        });
 
 
@@ -73,8 +69,8 @@
            var aData = miTabla.row(nRow).data();
            var idDoctor = aData.idDoctor;
 
-          
-           
+
+
 
 
            $.ajax({
@@ -89,17 +85,19 @@
                error: function(xhr, status, error) {
                    //mostraríamos alguna ventana de alerta con el error
                    alert("Ha entrado en error");
-                $('#edicionerr').html("Error al borrar doctor!").slideDown(2000).slideUp(2000);
+                   $('#edicionerr').html("Error al borrar doctor!").slideDown(2000).slideUp(2000);
 
                },
                success: function(data) {
-                alert("borrado ok");
+                   alert("borrado ok");
                    //obtenemos el mensaje del servidor, es un array!!!
                    //var mensaje = (data["mensaje"]) //o data[0], en función del tipo de array!!
                    //actualizamos datatables:
                    /*para volver a pedir vía ajax los datos de la tabla*/
-                   var $mitabla =  $("#miTabla").dataTable( { bRetrieve : true } );
-                  $mitabla.fnDraw();
+                   var $mitabla = $("#miTabla").dataTable({
+                       bRetrieve: true
+                   });
+                   $mitabla.fnDraw();
                    $('#edicionok').html("Borrado correcto!").slideDown(2000).slideUp(2000);
 
                },
@@ -114,7 +112,6 @@
            idDoctor = $('#idDoctor').val();
            nombre = $('#nombre').val();
            numcolegiado = $('#numcolegiado').val();
-           id_clinica = $('#clinicas').val();
 
 
            $.ajax({
@@ -129,26 +126,26 @@
                    idDoctor: idDoctor,
                    nombre: nombre,
                    numcolegiado: numcolegiado,
-                   id_clinica:id_clinica
-                   
+
                },
                error: function(xhr, status, error) {
                    //mostraríamos alguna ventana de alerta con el error
-                    alert(error);
-                    alert(xhr);
+                   alert(error);
+                   alert(xhr);
 
-                    alert(status);
+                   alert(status);
 
-                    $('#edicionerr').slideDown(2000).slideUp(2000);
+                   $('#edicionerr').slideDown(2000).slideUp(2000);
 
                },
                success: function(data) {
-                  var $mitabla =  $("#miTabla").dataTable( { bRetrieve : true } );
-                  $mitabla.fnDraw();
-                 // alert("ok");
-                $('#edicionok').slideDown(2000).slideUp(2000);
+                  $('#clinicas').empty();
+                    $.each(data, function() {
+                   $('#clinicas').append(
+                       $('<option></option>').val(this.id_clinica).html(this.nombre)
+                   );
 
-                 
+
 
                },
                complete: {
@@ -159,7 +156,7 @@
 
            $('#tabla').fadeIn(100);
            $('#formulario').fadeOut(100);
-            //$("#edicion").fadeOut(100);
+           //$("#edicion").fadeOut(100);
 
 
        });
@@ -177,7 +174,7 @@
                //data: { id_clinica: id_clinica, nombre: nombre, ….,  id_tarifa: id_tarifa },
                error: function(xhr, status, error) {
                    //mostraríamos alguna ventana de alerta con el error
-              
+
                },
                success: function(data) {
                    $('#clinicas').empty();

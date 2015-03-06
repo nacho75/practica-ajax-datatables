@@ -19,7 +19,7 @@
  */
  
 // DB table to use
-$table = 'vdoctores';
+$table = 'vdoctores2';
  
 // Table's primary key
 $primaryKey = 'id_doctor';
@@ -39,7 +39,7 @@ $columns = array(
 // SQL server connection information
 $sql_details = array(
     'user' => 'root',
-    'pass' => 'root',
+    'pass' => '',
     'db'   => 'datatables',
     'host' => 'localhost'
 );

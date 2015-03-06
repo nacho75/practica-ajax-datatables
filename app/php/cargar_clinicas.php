@@ -43,7 +43,7 @@ $columns = array(
 // SQL server connection information
 $sql_details = array(
     'user' => 'root',
-    'pass' => 'root',
+    'pass' => '',
     'db'   => 'datatables',
     'host' => 'localhost'
 );

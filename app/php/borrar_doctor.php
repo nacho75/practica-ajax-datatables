@@ -25,20 +25,20 @@ if (!mysql_select_db($gaSql['db'], $gaSql['link'])) {
 }
 
 mysql_query('SET names utf8');
-//$_REQUEST['id_clinica'] = 1;
-if (isset($_REQUEST['id_clinica'])) {
+//$_REQUEST['id_doctor'] = 1;
+if (isset($_REQUEST['id_doctor'])) {
     // param was set in the query string
-    if (empty($_REQUEST['id_clinica'])) {
-        return "El parámetro id_clinica viene vacio!";
+    if (empty($_REQUEST['id_doctor'])) {
+        return "El parámetro id_doctor viene vacio!";
     }
-    $id_clinica = $_REQUEST['id_clinica'];
+    $id_clinica = $_REQUEST['id_doctor'];
 }
 
 /*
  * SQL queries
  * Get data to display
  */
-$query = "delete from clinicas where id_clinica=" . $id_clinica;
+$query = "delete from doctores where id_doctor=" . $id_doctor;
 $query_res = mysql_query($query);
 
 // Comprobar el resultado

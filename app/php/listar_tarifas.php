@@ -31,14 +31,14 @@ mysql_query('SET names utf8');
  * SQL queries
  * Get data to display
  */
-$sQuery = "select id_tarifa, nombre from tarifas order by nombre";
+$sQuery = "select id_clinica, nombre from clinicas order by nombre";
 
 $rResult = mysql_query($sQuery, $gaSql['link']) or fatal_error('MySQL Error: ' . mysql_errno());
 
 $resultado = array();
 while ($fila = mysql_fetch_array($rResult)) {
     $resultado[] = array(
-      'id_tarifa' => $fila['id_tarifa'],
+      'id_clinica' => $fila['id_clinica'],
       'nombre' => $fila['nombre']
    );
 }
