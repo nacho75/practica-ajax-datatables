@@ -19,7 +19,7 @@
  */
  
 // DB table to use
-$table = 'vdoctores2';
+$table = 'vdoctores';
  
 // Table's primary key
 $primaryKey = 'id_doctor';

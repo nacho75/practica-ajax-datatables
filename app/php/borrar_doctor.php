@@ -31,7 +31,7 @@ if (isset($_REQUEST['id_doctor'])) {
     if (empty($_REQUEST['id_doctor'])) {
         return "El parámetro id_doctor viene vacio!";
     }
-    $id_clinica = $_REQUEST['id_doctor'];
+    $id_doctor = $_REQUEST['id_doctor'];
 }
 
 /*
@@ -51,7 +51,7 @@ if (!$query_res) {
         $estado = mysql_errno();
     }
 } else {
-    $mensaje = "Actualización correcta";
+    $mensaje = "Borrado correcto";
     $estado = 0;
 }
 $resultado = array();
