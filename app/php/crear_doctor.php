@@ -114,6 +114,5 @@ $resultado = array();
       'mensaje' => $mensaje,
       'estado' => $estado
    );
-
 echo json_encode($resultado);
 ?>

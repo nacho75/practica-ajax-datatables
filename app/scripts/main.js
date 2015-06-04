@@ -71,13 +71,13 @@
        });
 
 
-        $('#miTabla').on('click', '.borrarbtn', function(e) {
+       $('#miTabla').on('click', '.borrarbtn', function(e) {
            //e.preventDefault();
                     var nRow = $(this).parents('tr')[0];
            var aData = miTabla.row(nRow).data();
            idDoctor = aData.idDoctor;
 
-           alert(idDoctor);
+           //alert(idDoctor);
            //$('#tabla').fadeOut(100);
         //   $('#basicModal').fadeIn(100);
            //$('#basicModal').show();
@@ -85,15 +85,12 @@
 
          //    $('#basicModal').on('click', '#confBorrar', function(e) {
              //  e.preventDefault();
-
-          
   // });
 
        });
 
        $('#basicModal').on('click','#confBorrar',function(e){
         alert(idDoctor);
-
            $.ajax({
                /*en principio el type para api restful sería delete pero no lo recogeríamos en $_REQUEST, así que queda como POST*/
                type: 'POST',
@@ -144,20 +141,20 @@
        });
 
        $('#formEditar').validate({
-                        
-                        rules: {
-                             nombre: {
-                                required: true,
-                                lettersonly: true 
-                               },
-                        numcolegiado: {
-                            required: true,
-                                digits: true
-                        },
-                        clinicas:{
-                          required:true
-                        }
-                        },
+
+           rules: {
+               nombre: {
+                   required: true,
+                   lettersonly: true
+               },
+               numcolegiado: {
+                   required: true,
+                   digits: true
+               },
+               clinicas: {
+                   required: true
+               }
+           },
            submitHandler: function() {
 
                idDoctor = $('#idDoctor').val();
@@ -257,12 +254,12 @@
                },
                clinicas2: {
                    required: true
-               }
+                   }
            },
            submitHandler: function() {
-               nombreNuevo = $('#nombreNuevo').val();
-               numcolegiadoNuevo = $('#numcolegiadoNuevo').val();
-               clinicas2 = $('#clinicas2').val();
+               var nombreNuevo = $('#nombreNuevo').val();
+               var numcolegiadoNuevo = $('#numcolegiadoNuevo').val();
+               var clinicas2 = $('#clinicas2').val();
 
 
 
@@ -304,36 +301,34 @@
 
                    },
                    success: function(data) {
-                       var $mitabla = $("#miTabla").dataTable({
-                           bRetrieve: true
-                       });
-                       $mitabla.fnDraw();
-                       // alert("ok");
-                       //  $('#edicionok').slideDown(2000).slideUp(2000);
-                       /*muestro growl*/
-                       if (data[0].estado == 0) {
+                  var $mitabla =  $("#miTabla").dataTable( { bRetrieve : true } );
+                  $mitabla.fnDraw();
+                 // alert("ok");
+              //  $('#edicionok').slideDown(2000).slideUp(2000);
+                /*muestro growl*/
+                if(data[0].estado==0){
 
-                           $.growl({
+                 $.growl({
+                  
+                  icon: "glyphicon glyphicon-ok",
+                  message: "Doctor añadido correctamente!"
 
-                               icon: "glyphicon glyphicon-ok",
-                               message: "Doctor añadido correctamente!"
+                },{
+                  type: "success"
+                });
+               }else{
 
-                           }, {
-                               type: "success"
-                           });
-                       } else {
+                 $.growl({
+                  
+                  icon: "glyphicon glyphicon-remove",
+                  message: "Error al añadir el doctor!"
 
-                           $.growl({
+                },{
+                  type: "danger"
+                });
+               }
 
-                               icon: "glyphicon glyphicon-remove",
-                               message: "Error al añadir el doctor!"
-
-                           }, {
-                               type: "danger"
-                           });
-                       }
-
-                   },
+               },
                    complete: {
                        //si queremos hacer algo al terminar la petición ajax
 
@@ -347,10 +342,10 @@
        });
        $('#enviar').click(function(e) {
            e.preventDefault();
-           idDoctor = $('#idDoctor').val();
-           nombre = $('#nombre').val();
-           numcolegiado = $('#numcolegiado').val();
-           id_clinica = $('#clinicas').val();
+           var idDoctor = $('#idDoctor').val();
+           var nombre = $('#nombre').val();
+           var numcolegiado = $('#numcolegiado').val();
+           var id_clinica = $('#clinicas').val();
 
 
            $.ajax({
