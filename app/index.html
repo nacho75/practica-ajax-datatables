@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main6.css -->
+    <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/dataTables.bootstrap.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
@@ -22,14 +22,11 @@
 <body>
 
     <div class="container-fluid">
-        
+
         <div id="tabla" class="row">
             <div class="col-md-12">
-            <table id="miTabla" class="table stripe">
-                <div id="edicionok" class="alert alert-success" role="alert">Edicion correta!</div>
-                <div id="edicionerr" class="alert alert-danger" role="alert">Edicion erronea!</div>
-                <button id="creaDoc" type="button" class="btn btn-success navbar-btn">Añadir doctor</button>
-                
+                <table id="miTabla" class="table stripe">
+                    <button id="creaDoc" type="button" class="btn btn-success navbar-btn">Añadir doctor</button>
                     <thead>
                         <th>Nombre doctor</th>
                         <th>Numero de colegiado</th>
@@ -53,7 +50,7 @@
         <div id="formulario" class="row">
             <div class="col-md-4 col-md-offset-3">
                 <!--/*el formulario es aproximadamente un copy-paste de http://getbootstrap.com/css/#forms -->
-                <form class="form-horizontal">
+                <form class="form-horizontal" id="formEditar" action="" method="post">
                     <div>
                         <h2>Editar doctor</h2>
                         <div class="form-group">
@@ -65,7 +62,7 @@
                         <div class="form-group">
                             <label for="nombre" class="col-sm-2 control-label">Nombre</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="nombre" placeholder="Nombre de la clínica">
+                                <input type="text" class="form-control" id="nombre" placeholder="Nombre del doctor">
                             </div>
                         </div>
                         <div class="form-group">
@@ -103,7 +100,7 @@
                         <h4 class="modal-title" id="myModalLabel">Borrar doctor</h4>
                     </div>
                     <div class="modal-body">
-                        <h3>¿Quiere borrar el doctor?</h3>
+                        <h3>¿Desea borrar el doctor?</h3>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -159,9 +156,9 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
-    <script src="../bower_components/bootstrap-growl/jquery.bootstrap-growl.js"></script>
     <script src="../bower_components/jquery-validate/dist/jquery.validate.js"></script>
     <script src="../bower_components/jquery-validate/dist/additional-methods.js"></script>
+    <script src="../bower_components/bootstrap.growl/bootstrap-growl.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -171,7 +168,7 @@
     <script src="scripts/modal.js"></script>
     <script src="scripts/messages_es.js"></script>
     <script src="scripts/main.js"></script>
-    
+
     <!-- endbuild -->
 
 

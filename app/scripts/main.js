@@ -77,7 +77,7 @@
            var aData = miTabla.row(nRow).data();
            idDoctor = aData.idDoctor;
 
-           //alert(idDoctor);
+           alert(idDoctor);
            //$('#tabla').fadeOut(100);
         //   $('#basicModal').fadeIn(100);
            //$('#basicModal').show();
@@ -157,10 +157,10 @@
            },
            submitHandler: function() {
 
-               idDoctor = $('#idDoctor').val();
-               nombre = $('#nombre').val();
-               numcolegiado = $('#numcolegiado').val();
-               id_clinica = $('#clinicas').val();
+               var idDoctor = $('#idDoctor').val();
+               var nombre = $('#nombre').val();
+               var numcolegiado = $('#numcolegiado').val();
+               var id_clinica = $('#clinicas').val();
 
 
 
@@ -182,10 +182,10 @@
                    },
                    error: function(xhr, status, error) {
                        //mostraríamos alguna ventana de alerta con el error
-                       alert(error);
-                       alert(xhr);
+                       //alert(error);
+                       //alert(xhr);
 
-                       alert(status);
+                       //alert(status);
 
                        // $('#edicionerr').slideDown(2000).slideUp(2000);
 
@@ -200,35 +200,36 @@
 
                    },
                    success: function(data) {
-                       var $mitabla = $("#miTabla").dataTable({
-                           bRetrieve: true
-                       });
-                       $mitabla.fnDraw();
+                       var $mitabla =  $("#miTabla").dataTable( { bRetrieve : true } );
+                  $mitabla.fnDraw();
+                 // alert("ok");
+              //  $('#edicionok').slideDown(2000).slideUp(2000);
+                /*muestro growl*/
+                if(data[0].estado==0){
 
-                       if (data[0].estado == 0) {
+                 $.growl({
+                  
+                  icon: "glyphicon glyphicon-ok",
+                  message: "Doctor editado correctamente!"
 
-                           $.growl({
+                },{
+                  type: "success"
+                });
+               }else{
 
-                               icon: "glyphicon glyphicon-ok",
-                               message: "Doctor editado correctamente!"
+                 $.growl({
+                  
+                  icon: "glyphicon glyphicon-remove",
+                  message: "Error al editar el doctor!"
 
-                           }, {
-                               type: "success"
-                           });
-                       } else {
+                },{
+                  type: "danger"
+                });
+               }
 
-                           $.growl({
-
-                               icon: "glyphicon glyphicon-remove",
-                               message: "Error al editar el doctor!"
-
-                           }, {
-                               type: "danger"
-                           });
-                       }
-
-                   },
+               },
                    complete: {
+                       //si queremos hacer algo al terminar la petición ajax
 
                    }
                });
@@ -340,7 +341,7 @@
            }
 
        });
-       $('#enviar').click(function(e) {
+       /*$('#enviar').click(function(e) {
            e.preventDefault();
            var idDoctor = $('#idDoctor').val();
            var nombre = $('#nombre').val();
@@ -395,7 +396,7 @@
            //$("#edicion").fadeOut(100);
 
 
-       });
+       });*/
 
        $('#creaDoc').click(function(e) {
            e.preventDefault();

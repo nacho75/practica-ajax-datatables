@@ -3,9 +3,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "~3.2.0",
-    "growl": "~1.2.5",
-    "remarkable-bootstrap-notify": "~3.0.0",
-    "bootstrap-growl": "~1.1.0",
+    "bootstrap.growl": "~2.0.1",
     "jquery-validate": "~1.13.1"
   }
 }
