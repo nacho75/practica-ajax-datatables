@@ -1,5 +1,4 @@
 <?php
-
 /* Database connection information */
 include("mysql.php" );
 
@@ -59,5 +58,5 @@ $resultado[] = array(
     'mensaje' => $mensaje,
     'estado' => $estado
 );
-/*echo json_encode($resultado);*/
+echo json_encode($resultado);
 ?>

@@ -45,7 +45,7 @@
            }, {
                'data': 'idDoctor',
                'render': function(data) {
-                   return '<a class="btn btn-primary editarbtn" href=http://localhost/practica-ajax-datatables/app/php/modificar_clinica.php?id_doctor=' + data + '>Editar</a><a data-toggle="modal" data-target="#basicModal"  class="btn btn-warning borrarbtn" href=http://localhost/practica-ajax-datatables/app/php/borrar_doctor.php?id_doctor=' + data + '>Borrar</a>';
+                   return '<a class="btn btn-primary editarbtn" href=http://localhost/practica-ajax-datatables/app/php/modificar_clinica.php?id_doctor=' + data + '>Editar</a><a data-toggle="modal" data-target="#basicModal"  class="btn btn-warning borrarbtn" >Borrar</a>';
                }
            }]
        });
@@ -67,16 +67,13 @@
        });
 
 
-       $('#miTabla').on('click', '.borrarbtn', function(e) {
+       $('#miTabla').on('click','.borrarbtn', function(e) {
            var nRow = $(this).parents('tr')[0];
            var aData = miTabla.row(nRow).data();
            idDoctor = aData.idDoctor;
-
-           alert(idDoctor);
        });
 
-       $('#basicModal').on('click', '#confBorrar', function(e) {
-           alert(idDoctor);
+       $('#basicModal').on('click','#confBorrar',function(e) {
            $.ajax({
                type: 'POST',
                dataType: 'json',
@@ -85,7 +82,6 @@
                    id_doctor: idDoctor
                },
                error: function(xhr, status, error) {
-                   alert("Ha entrado en error");
                    $.growl({
 
                        icon: "glyphicon glyphicon-remove",
@@ -96,7 +92,6 @@
                    });
                },
                success: function(data) {
-                   alert("borrado ok");
                    var $mitabla = $("#miTabla").dataTable({
                        bRetrieve: true
                    });
