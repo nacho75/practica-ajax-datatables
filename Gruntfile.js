@@ -19,7 +19,7 @@ module.exports = function (grunt) {
   // Configurable paths
   var config = {
     app: 'app',
-    dist: '/Documents/GitHub/practica-ajax-datatables'
+    dist: 'dist'
   };
 
   // Define the configuration for all the tasks
@@ -164,7 +164,8 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         ignorePath: /^\/|\.\.\//,
-        src: ['<%= config.app %>/ejercicio*.html']
+        src: ['<%= config.app %>/index.html'],
+        exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']
       }
     },
 
@@ -190,7 +191,7 @@ module.exports = function (grunt) {
       options: {
         dest: '<%= config.dist %>'
       },
-      html: '<%= config.app %>/ejercicio*.html'
+      html: '<%= config.app %>/index.html'
     },
 
     // Performs rewrites based on rev and the useminPrepare configuration
@@ -325,12 +326,7 @@ module.exports = function (grunt) {
         'imagemin',
         'svgmin'
       ]
-    },
-    shell: {
-      dist: {
-       command: 'rm -rf <%= config.dist %>/*'
-     }
-   }
+    }
   });
 
 
@@ -373,7 +369,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', [
-    'shell:dist',
+    'clean:dist',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

@@ -1,5 +1,5 @@
 <?php
- 
+ header('Access-Control-Allow-Origin: *');
 /*
  * DataTables example server-side processing script.
  *
@@ -42,9 +42,9 @@ $columns = array(
  
 // SQL server connection information
 $sql_details = array(
-    'user' => 'root',
-    'pass' => '',
-    'db'   => 'datatables',
+    'user' => 'igmartinez_root',
+    'pass' => '123456',
+    'db'   => 'igmartinez_datatables',
     'host' => 'localhost'
 );
  

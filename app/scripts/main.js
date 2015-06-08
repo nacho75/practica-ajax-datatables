@@ -1,7 +1,9 @@
    'use strict';
+   $.validator.addMethod("lettersonly", function(value, element) {
+       return this.optional(element) || /^[a-z\s\ñ\Ñ]+$/i.test(value);
+   }, "Solo letras por favor");
    var idDoctor;
    $(document).ready(function() {
-       $('#example').show();
        var miTabla = $('#miTabla').DataTable({
            'processing': true,
            'serverSide': true,
@@ -67,13 +69,13 @@
        });
 
 
-       $('#miTabla').on('click','.borrarbtn', function(e) {
+       $('#miTabla').on('click', '.borrarbtn', function(e) {
            var nRow = $(this).parents('tr')[0];
            var aData = miTabla.row(nRow).data();
            idDoctor = aData.idDoctor;
        });
 
-       $('#basicModal').on('click','#confBorrar',function(e) {
+       $('#basicModal').on('click', '#confBorrar', function(e) {
            $.ajax({
                type: 'POST',
                dataType: 'json',

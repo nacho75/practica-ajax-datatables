@@ -1,5 +1,5 @@
 <?php
-
+header('Access-Control-Allow-Origin: *');
 /* Database connection information */
 include("mysql.php" );
 
